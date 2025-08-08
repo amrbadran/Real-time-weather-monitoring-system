@@ -1,3 +1,3 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Real_time_weather_monitoring_system.app;
 
-Console.WriteLine("Hello, World!");
+App.Run();
