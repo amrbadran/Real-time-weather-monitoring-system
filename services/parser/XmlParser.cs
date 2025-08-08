@@ -18,7 +18,8 @@ public class XmlParser : IParser
         var serializer = new XmlSerializer(typeof(WeatherData));
         using (StringReader reader = new StringReader(weatherData))
         {
-            return (WeatherData)serializer.Deserialize(reader);
+            // If Deserialize returns null then throw InvalidOperationException
+            return (WeatherData)(serializer.Deserialize(reader) ?? throw new InvalidOperationException());
         }
     }
 }
