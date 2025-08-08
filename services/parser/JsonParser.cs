@@ -16,6 +16,7 @@ public class JsonParser : IParser
     public WeatherData Parse(string weatherData)
     {
         if (weatherData == null) throw new ArgumentNullException();
-        return JsonSerializer.Deserialize<WeatherData>(weatherData);
+        return JsonSerializer.Deserialize<WeatherData?>(weatherData) ?? throw new JsonException("Can't Convert From Json");
+        
     }
 }

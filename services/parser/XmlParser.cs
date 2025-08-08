@@ -19,7 +19,7 @@ public class XmlParser : IParser
         using (StringReader reader = new StringReader(weatherData))
         {
             // If Deserialize returns null then throw InvalidOperationException
-            return (WeatherData)(serializer.Deserialize(reader) ?? throw new InvalidOperationException());
+            return (WeatherData)(serializer.Deserialize(reader) ?? throw new InvalidOperationException("Can't Convert From Xml"));
         }
     }
 }
