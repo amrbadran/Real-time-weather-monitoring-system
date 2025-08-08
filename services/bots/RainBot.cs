@@ -15,7 +15,7 @@ public class RainBot : ISubscriber, IBot
 
     public string Message()
     {
-        return "RainBot Activated\n RainBot: " + (Bot?.Message ?? "");
+        return "RainBot Activated\nRainBot: " + (Bot?.Message ?? "");
     }
 
     public string? Update(WeatherData weatherData)

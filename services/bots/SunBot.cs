@@ -15,7 +15,7 @@ public class SunBot : ISubscriber, IBot
 
     public string Message()
     {
-        return "SunBot Activated\n SunBot: " + (Bot?.Message ?? "");
+        return "SunBot Activated\nSunBot: " + (Bot?.Message ?? "");
     }
 
     public string? Update(WeatherData weatherData)
