@@ -19,8 +19,11 @@ public class PublisherBots
         _subscribers.Add(subscriber);
     }
 
-    public void NotifyAll()
+    public List<string?> NotifyAll()
     {
-        _subscribers.ForEach(s => s.Update(_weatherData));
+        return _subscribers
+            .Select(s => s.Update(_weatherData))
+            .Where(s => !string.IsNullOrWhiteSpace(s))
+            .ToList();
     }
 }
