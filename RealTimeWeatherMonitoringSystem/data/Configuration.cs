@@ -7,22 +7,14 @@ namespace Real_time_weather_monitoring_system.data;
 
 /// <summary>
 /// Configuration class that will be handling the bots config info from config.json file
-/// This class apply singleton pattern, any class want to get config.json can get to it through this file
 /// </summary>
-public sealed class Configuration
+public class Configuration
 {
-    private static readonly Lazy<Configuration> Lazy = new Lazy<Configuration>(() => new Configuration());
-
     public readonly ReadOnlyDictionary<string, Bot> Bots;
 
-    public static Configuration Instance
+    public Configuration(IConfigFileReader reader)
     {
-        get => Lazy.Value;
-    }
-
-    private Configuration()
-    {
-        Bots = Load();
+        Bots = Load(reader);
     }
 
     /// <summary>
@@ -31,9 +23,9 @@ public sealed class Configuration
     /// </summary>
     /// <returns>Readonly dictionary for all bots</returns>
     /// <exception cref="JsonException">throws when fail to convert the file</exception>
-    private ReadOnlyDictionary<string, Bot> Load()
+    private ReadOnlyDictionary<string, Bot> Load(IConfigFileReader reader)
     {
-        var file = File.ReadAllText(Constants.ConfigPath);
+        var file = reader.ReadAllText(Constants.ConfigPath);
 
         var dict = JsonSerializer.Deserialize<Dictionary<string, Bot>>(file, new JsonSerializerOptions
         {
@@ -44,3 +36,4 @@ public sealed class Configuration
         return new ReadOnlyDictionary<string, Bot>(dict);
     }
 }
+
