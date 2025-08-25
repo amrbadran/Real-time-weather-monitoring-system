@@ -8,9 +8,15 @@ namespace Real_time_weather_monitoring_system.services.bots;
 /// </summary>
 public class RainBot : ISubscriber, IBot
 {
+    private Configuration _configuration;
+    public RainBot(Configuration configuration)
+    {
+        _configuration = configuration;
+    }
+
     public Bot? Bot
     {
-        get => Configuration.Instance.Bots.GetValueOrDefault("RainBot");
+        get => _configuration.Bots.GetValueOrDefault("RainBot");
     }
 
     public string Message()

@@ -3,6 +3,8 @@ using Real_time_weather_monitoring_system.data;
 using Real_time_weather_monitoring_system.models;
 using Real_time_weather_monitoring_system.services.bots;
 using Real_time_weather_monitoring_system.services.parser;
+using Microsoft.Extensions.DependencyInjection;
+using Real_time_weather_monitoring_system.utils;
 
 namespace Real_time_weather_monitoring_system.app;
 
@@ -12,18 +14,20 @@ public class App
     {
         try
         {
+            // Run The Ioc For Building Objects
+            var provider = IocBuilder.BuildObjects();
+
             // Seed System by config.json
-            BuildConfiguration();
-            
+            BuildConfiguration(provider);
+
             // Take input and Build WeatherData
             var weatherData = BuildWeatherData(Console.ReadLine());
-            
+
             // Get PublisherBots Object and Seed it by bots
-            var publisherBots = BuildPublisher(weatherData);
+            var publisherBots = BuildPublisher(weatherData, provider);
 
             // Notify All bots by their update methods then print their messages
             PrintBotsMessages(publisherBots);
-            
         }
         catch (InvalidOperationException e)
         {
@@ -39,12 +43,16 @@ public class App
         }
     }
 
-    private static PublisherBots BuildPublisher(WeatherData weatherData)
+    private static PublisherBots BuildPublisher(WeatherData weatherData, ServiceProvider serviceProvider)
     {
         PublisherBots publisherBots = new PublisherBots(weatherData);
-        publisherBots.Subscribe(new RainBot());
-        publisherBots.Subscribe(new SnowBot());
-        publisherBots.Subscribe(new SunBot());
+        var bots = serviceProvider.GetRequiredService<IEnumerable<ISubscriber>>();
+
+        foreach (var bot in bots)
+        {
+            publisherBots.Subscribe(bot);
+        }
+
         return publisherBots;
     }
 
@@ -58,14 +66,14 @@ public class App
         IParser parser = ParserFactory.Create(input);
         return parser.Parse(input!);
     }
-    
+
     /// <summary>
     /// This is for config.json file,
     /// Load config.json to our system By Calling Instance only.
     /// </summary>
     /// <returns>Configuration Object</returns>
-    private static Configuration BuildConfiguration()
+    private static Configuration BuildConfiguration(ServiceProvider provider)
     {
-        return Configuration.Instance;
+        return provider.GetRequiredService<Configuration>();
     }
 }

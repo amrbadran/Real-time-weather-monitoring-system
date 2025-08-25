@@ -8,9 +8,16 @@ namespace Real_time_weather_monitoring_system.services.bots;
 /// </summary>
 public class SnowBot : ISubscriber, IBot
 {
+    private Configuration _configuration;
+
+    public SnowBot(Configuration configuration)
+    {
+        _configuration = configuration;
+    }
+
     public Bot? Bot
     {
-        get => Configuration.Instance.Bots["SnowBot"];
+        get => _configuration.Bots["SnowBot"];
     }
 
     public string Message()
