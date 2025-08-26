@@ -1,0 +1,1 @@
+[![build and test](https://github.com/amrbadran/Real-time-weather-monitoring-system/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/amrbadran/Real-time-weather-monitoring-system/actions/workflows/build-and-test.yml)
