@@ -3,5 +3,6 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::BB603656-D01A-4A87-9908-474970DC9137::net9.0::RealTimeWeatherMonitoringSystem.Tests.dataTests.ConfigurationShould.LoadTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::BB603656-D01A-4A87-9908-474970DC9137::net9.0::RealTimeWeatherMonitoringSystem.Tests.servicesTests.botsTests.PublisherBotsShould.NotifyAllTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::BB603656-D01A-4A87-9908-474970DC9137::net9.0::RealTimeWeatherMonitoringSystem.Tests.servicesTests.botsTests.RainBotShould.UpdateTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
